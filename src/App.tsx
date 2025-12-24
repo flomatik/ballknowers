@@ -189,7 +189,7 @@ function App() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 flex">
+    <main className="min-h-screen bg-gray-50 flex overflow-x-hidden">
       {/* Side Navigation */}
       <SideNav 
         currentPage={currentPage} 
@@ -200,9 +200,9 @@ function App() {
       />
       
       {/* Main Content */}
-      <div className="flex-1 lg:ml-64">
+      <div className="flex-1 lg:ml-64 w-full max-w-full overflow-x-hidden">
         {/* Mobile Header with Hamburger */}
-        <div className="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between sticky top-0 z-30">
+        <div className="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between fixed top-0 left-0 right-0 z-30 w-screen max-w-screen">
           <button
             onClick={() => setMobileMenuOpen(true)}
             className="text-gray-600 hover:text-gray-900"
@@ -215,7 +215,7 @@ function App() {
           <div className="w-6" /> {/* Spacer for centering */}
         </div>
         
-        <div className="w-full px-4 lg:px-8 py-4 lg:py-8">
+        <div className="w-full px-4 lg:px-8 pt-16 lg:pt-8 pb-4 lg:pb-8">
           {loading ? (
             <div className="flex justify-center items-center h-64">
               <div className="text-gray-600 text-sm">Loading NFL data...</div>

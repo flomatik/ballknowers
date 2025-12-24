@@ -51,8 +51,8 @@ export default function StandingsPage({ players, nflTeams }: StandingsPageProps)
 
   return (
     <div className="w-full space-y-6">
-      {/* Header */}
-      <div className="mb-6">
+      {/* Header - Hidden on mobile */}
+      <div className="mb-6 hidden lg:block">
         <h2 className="text-2xl font-semibold text-gray-900">League Standings</h2>
       </div>
 
