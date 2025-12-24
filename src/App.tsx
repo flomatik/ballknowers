@@ -14,20 +14,6 @@ function App() {
   const [currentStep, setCurrentStep] = useState<'naming' | 'selection' | 'standings'>('naming')
   const [currentPage, setCurrentPage] = useState<'draft' | 'standings'>('draft')
 
-  const updatePlayerRecords = useCallback((teams: NFLTeam[]) => {
-    setPlayers(prevPlayers => prevPlayers.map(player => {
-      const selectedTeam = teams.find(t => t.abbreviation === player.selectedTeam)
-      if (selectedTeam) {
-        return {
-          ...player,
-          wins: selectedTeam.wins,
-          losses: selectedTeam.losses,
-          ties: selectedTeam.ties,
-        }
-      }
-      return player
-    }))
-  }, [])
 
   const loadNFLData = useCallback(async () => {
     try {
@@ -179,16 +165,6 @@ function App() {
     })
   }
 
-  const handleStartLeague = async () => {
-    // Update player records based on their selected teams
-    if (nflTeams.length > 0) {
-      updatePlayerRecords(nflTeams)
-    }
-    // Save to Supabase
-    await saveLeagueData(players)
-    setCurrentStep('standings')
-    setCurrentPage('standings')
-  }
 
   const allPlayersSelected = players.length > 0 && players.every(p => 
     (p.team_1 !== null || p.selectedTeam !== null) && 
@@ -257,7 +233,6 @@ function App() {
                       players={players}
                       nflTeams={nflTeams}
                       onTeamSelection={handleTeamSelection}
-                      onStartLeague={handleStartLeague}
                       allPlayersSelected={allPlayersSelected}
                     />
                   )}

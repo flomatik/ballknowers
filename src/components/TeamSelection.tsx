@@ -8,7 +8,6 @@ interface TeamSelectionProps {
   players: Player[]
   nflTeams: NFLTeam[]
   onTeamSelection: (playerId: number, teamAbbr: string, teamSlot: 1 | 2 | 3) => void
-  onStartLeague: () => void
   allPlayersSelected: boolean
 }
 
@@ -16,7 +15,6 @@ export default function TeamSelection({
   players,
   nflTeams,
   onTeamSelection,
-  onStartLeague,
   allPlayersSelected,
 }: TeamSelectionProps) {
   const [selectedPlayer, setSelectedPlayer] = useState<number | null>(players[0]?.id || null)
@@ -188,7 +186,7 @@ export default function TeamSelection({
                         const playerTeams = getPlayerTeams(selectedPlayer)
                         // Find first empty slot or replace first slot
                         let slot: 1 | 2 | 3 = 1
-                        if (!playerTeams.team_1 && !playerTeams.selectedTeam) slot = 1
+                        if (!playerTeams.team_1) slot = 1
                         else if (!playerTeams.team_2) slot = 2
                         else if (!playerTeams.team_3) slot = 3
                         else slot = 1 // Replace first if all filled
