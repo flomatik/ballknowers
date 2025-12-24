@@ -4,12 +4,36 @@ interface SideNavProps {
   currentPage: 'draft' | 'standings'
   onNavigate: (page: 'draft' | 'standings') => void
   players: Player[]
+  isOpen: boolean
+  onClose: () => void
 }
 
-export default function SideNav({ currentPage, onNavigate, players }: SideNavProps) {
+export default function SideNav({ currentPage, onNavigate, players, isOpen, onClose }: SideNavProps) {
   return (
-    <div className="fixed left-0 top-0 h-full w-64 bg-gray-900 border-r border-gray-800 shadow-lg z-50">
-      <div className="p-6">
+    <>
+      {/* Mobile overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={onClose}
+        />
+      )}
+      
+      {/* Sidebar */}
+      <div className={`fixed left-0 top-0 h-full w-64 bg-gray-900 border-r border-gray-800 shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      } lg:translate-x-0`}>
+        {/* Close button for mobile */}
+        <button
+          onClick={onClose}
+          className="lg:hidden absolute top-4 right-4 text-gray-400 hover:text-white z-10"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        
+        <div className="p-6">
         <div className="mb-8">
           <h1 className="text-xl font-bold text-white mb-1">
             NFL Pick'em
@@ -53,6 +77,7 @@ export default function SideNav({ currentPage, onNavigate, players }: SideNavPro
         </div>
       </div>
     </div>
+    </>
   )
 }
 

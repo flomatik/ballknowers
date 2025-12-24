@@ -13,6 +13,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [currentStep, setCurrentStep] = useState<'naming' | 'selection' | 'standings'>('naming')
   const [currentPage, setCurrentPage] = useState<'draft' | 'standings'>('draft')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
 
   const loadNFLData = useCallback(async () => {
@@ -194,11 +195,27 @@ function App() {
         currentPage={currentPage} 
         onNavigate={handlePageNavigate}
         players={players}
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
       />
       
       {/* Main Content */}
-      <div className="flex-1 ml-64">
-        <div className="w-full px-8 py-8">
+      <div className="flex-1 lg:ml-64">
+        {/* Mobile Header with Hamburger */}
+        <div className="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between sticky top-0 z-30">
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            className="text-gray-600 hover:text-gray-900"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <h1 className="text-lg font-semibold text-gray-900">NFL Pick'em</h1>
+          <div className="w-6" /> {/* Spacer for centering */}
+        </div>
+        
+        <div className="w-full px-4 lg:px-8 py-4 lg:py-8">
           {loading ? (
             <div className="flex justify-center items-center h-64">
               <div className="text-gray-600 text-sm">Loading NFL data...</div>
