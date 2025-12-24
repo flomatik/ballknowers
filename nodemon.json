@@ -1,0 +1,8 @@
+{
+  "watch": ["app", "components", "lib", "types"],
+  "ext": "ts,tsx,js,jsx,json",
+  "ignore": [".next", "node_modules"],
+  "exec": "npm run build && npm start",
+  "delay": 1000
+}
+
