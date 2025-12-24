@@ -215,7 +215,9 @@ function App() {
           <div className="w-6" /> {/* Spacer for centering */}
         </div>
         
-        <div className="w-full px-4 lg:px-8 pt-16 lg:pt-8 pb-4 lg:pb-8">
+        <div className={`w-full px-4 lg:px-8 pb-4 lg:pb-8 ${
+          currentPage === 'standings' ? 'pt-0 lg:pt-8' : 'pt-16 lg:pt-8'
+        }`}>
           {loading ? (
             <div className="flex justify-center items-center h-64">
               <div className="text-gray-600 text-sm">Loading NFL data...</div>
